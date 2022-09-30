@@ -30,75 +30,80 @@ Sample Output 0
 #include <iostream>
 #include <algorithm>
 using namespace std;
-
 int *queue=NULL;
-int n=0;
-int x=0;
-int front=-1,rear=-1;
-
-int enque(int item)
+int *stack=NULL;
+int front=-1,rear=-1,top=-1,n;
+void enqueue(int x)
 {
-    if((front == 0 && rear == 4) || (front == rear+1))
-        return -1;    //queur is full
-    else {
-
-        if(front == -1)
-          {
-            front = 0; rear = 0;
-          }
-        else if(rear == 4) rear = 0;
-        
-        else rear = rear +1;
-        
-        //insert the item
-        queue[rear] = item;
-        return 1;
-        }
-}
-
-int deque()
-{
-    if(front == -1)
-        return -1;//Queue is EMPTY
-    else
     {
-        int item = queue[front];    //store the item to be deleted
+        if(front==-1)
+        {
+            front=0;
+            rear=0;
+        }
+        else if(rear==n-1)
+        {
+            rear=0;
+        }
+        else
+        {
+            rear++;
+        }
+        queue[rear]=x;
+    }
+}
+int deqeue()
+{
+    int deleted=queue[front];
+    {
+        
         if(front == rear)
         {
             front = -1; rear = -1;
         }
         else if(front == 4) front = 0;
         else front = front +1;
-        return item;
+            
     }
+    return deleted;
 }
 
-
-void task()
+void push(int x)
 {
-   cin>>x;
-    int j=front;
-    for(int i=x-1;i>=j;i--)
-    {
-        swap(queue[j],queue[i]);
-        j++;
-    }    
+    top =top+1;
+        stack[top] = x;
 }
-int main() {
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+int pop()
+{
+    int deleted = stack[top];
+    top=top-1;
+    return deleted;
+}
+
+int main()
+{
+    
     cin>>n;
     queue = new int[n];
     for(int i=0;i<n;i++)
     {
         int data;
         cin>>data;
-        enque(data);
+        enqueue(data);
     }
-    task();
-    
-    for(int i=front;i<=rear;i++)
+    int k;
+    cin>>k;
+    stack = new int[k];
+    while(front<k)
+    {
+        push(deqeue());
+    }
+    while(top!=-1)
+    {
+        enqueue(pop());
+    }
+    for(int i=0;i<n;i++)
     {
         cout<<queue[i]<<" ";
     }
-    return 0;
 }
